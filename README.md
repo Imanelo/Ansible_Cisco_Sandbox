@@ -23,5 +23,6 @@ $ touch ios_report.j2
 
 **Step 6: View the rendered reports**
 
-#Project Structure
+# Project Structure
+
 ![Project Structure](https://github.com/Imanelo/Ansible_Cisco_Sandbox/blob/dev/Capture%20d%E2%80%99%C3%A9cran%20du%202023-08-12%2018-29-30.png)
