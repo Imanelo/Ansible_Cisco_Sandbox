@@ -1,0 +1,12 @@
+[always_on]
+ios-xe-mgmt.cisco.com
+sbx-iosxr-mgmt.cisco.com
+sbx-nxos-mgmt.cisco.com
+[ios]
+ios-xe-mgmt.cisco.com
+[iosxr]
+sbx-iosxr-mgmt.cisco.com ansible_host=sandbox-iosxr-1.cisco.com
+[nxos]
+sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com
+[aci]
+sandboxapicdc.cisco.com

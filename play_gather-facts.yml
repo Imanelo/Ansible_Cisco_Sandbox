@@ -1,0 +1,29 @@
+---                                                  ## signals the start of a YAML file
+
+- name: Play - IOS audit report                      ## name for the playbook, included in the output of a playbook run
+  hosts: ios                                         ## list of one or more inventory groups, separated by colons
+  connection: network_cli                            ## plugin for a CLI connection to network devices
+  gather_facts: no                                   ## 'no' is required for Ansible versions prior to 2.9
+
+  tasks:                                             ## start of the tasks list, executed from top to bottom on each network device in the hosts list
+
+  - name: Task 1 - Gathering IOS facts               ## name for task 1, included in the output of a playbook run
+    ios_facts:                                       ## ios_facts is the Ansible module we are invoking
+
+  - name: Task 2 - Creating a reports folder (if not already present)
+    file:                                            ## file is the Ansible module we are invoking
+      name: reports                                  ## the name to give the new directory
+      state: directory                               ## parameter of the file module, creates a directory
+    run_once: true                                   ## instructs Ansible to only run this task once for the batch of hosts targeted in the playbook
+
+  - name: Task 3 - Generating the device reports
+    template:                                        ## template is the Ansible module we are invoking
+      src: ios_report.j2                             ## parameter of the template module, path to the Jinja2 template on our Ansible control node
+      dest: reports/{{ inventory_hostname }}.md      ## parameter of the template module, location to render the Jinja2 template
+
+  - name: Task 4 - Consolidating the device reports
+    assemble:                                        ## assemble is the Ansible module we are invoking
+      src: reports/                                  ## parameter of the assemble module, path to the directory containing the individual device reports
+      dest: reports/ios_network_report.md            ## parameter of the assemble module, the file to create using the concatenation of the individual device reports
+    delegate_to: localhost                           ## runs this task on our Ansible control node
+    run_once: true
